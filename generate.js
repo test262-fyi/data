@@ -122,24 +122,16 @@ export default async ({ test262Rev, beganAt }) => {
   const featureByEdition = new Map(Object.entries({
     // https://github.com/tc39/proposal-intl-locale-info
     "Intl.Locale-info": 99,
-    // https://github.com/tc39/proposal-cleanup-some
-    "FinalizationRegistry.prototype.cleanupSome": 99,
     // https://github.com/tc39/proposal-intl-numberformat-v3
     "Intl.NumberFormat-v3": 99,
     // https://github.com/tc39/proposal-regexp-legacy-features
     "legacy-regexp": 99,
-    // https://github.com/tc39/proposal-import-attributes
-    "import-assertions": 99,
-    // https://github.com/tc39/proposal-json-modules
-    "json-modules": 99,
     // https://github.com/tc39/proposal-json-parse-with-source
     "json-parse-with-source": 99,
     // https://github.com/tc39/proposal-temporal
     "Temporal": 99,
     // https://github.com/tc39/proposal-shadowrealm
     "ShadowRealm": 99,
-    // https://github.com/tc39/proposal-intl-duration-format
-    "Intl.DurationFormat": 99,
     // https://github.com/tc39/proposal-decorators
     "decorators": 99,
     // https://github.com/tc39/proposal-duplicate-named-capturing-groups
@@ -152,20 +144,8 @@ export default async ({ test262Rev, beganAt }) => {
     "Intl.DateTimeFormat-extend-timezonename": 99,
     // https://github.com/tc39/proposal-intl-displaynames-v2
     "Intl.DisplayNames-v2": 99,
-    // https://github.com/tc39/proposal-symbols-as-weakmap-keys
-    "symbols-as-weakmap-keys": 99,
-    // https://github.com/tc39/proposal-import-attributes
-    "import-attributes": 99,
-    // https://github.com/tc39/proposal-regexp-modifiers
-    "regexp-modifiers": 99,
-    // https://github.com/tc39/proposal-iterator-helpers
-    "iterator-helpers": 99,
-    // https://github.com/tc39/proposal-promise-try
-    "promise-try": 99,
     // https://github.com/tc39/proposal-explicit-resource-management
     "explicit-resource-management": 99,
-    // https://github.com/tc39/proposal-float16array
-    "Float16Array": 99,
     // https://github.com/tc39/proposal-math-sum
     "Math.sumPrecise": 99,
     // https://github.com/tc39/proposal-source-phase-imports
@@ -175,9 +155,15 @@ export default async ({ test262Rev, beganAt }) => {
     //
     "host-gc-required": 99,
 
-    //stage 4 future 16/ES 2025 features
-    //keeping these as '99' until that's published so they still show up as ESNext for now
-    "set-methods": 99,
+    "Float16Array": 16,
+    "import-attributes": 16,
+    "Intl.DurationFormat": 16,
+    "iterator-helpers": 16,
+    "json-modules": 16,
+    "promise-try": 16,
+    "RegExp.escape": 16,
+    "regexp-modifiers": 16,
+    "set-methods": 16,
 
     "Atomics.waitAsync": 15,
     "array-grouping": 15,
@@ -191,6 +177,7 @@ export default async ({ test262Rev, beganAt }) => {
     "array-find-from-last": 14,
     "change-array-by-copy": 14,
     "hashbang": 14,
+    "symbols-as-weakmap-keys": 14,
 
     "AggregateError": 12,
     "align-detached-buffer-semantics-with-web-reality": 12,
