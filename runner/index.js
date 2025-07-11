@@ -77,7 +77,7 @@ if (cluster.isPrimary) {
         result(running.file, false);
 
         // cleanup tmp file
-        const tmpFile = `test262/test/${running.file}.${engine}.js`;
+        const tmpFile = `test262/test/${running.file}.${engine}`;
         fs.unlinkSync(tmpFile);
 
         if (finished === total) {
