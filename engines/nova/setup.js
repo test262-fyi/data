@@ -27,7 +27,7 @@ export default async () => {
   const artifacts = (
     await (await fetch(latest.artifacts_url, { headers })).json()
   ).artifacts;
-  const artifact = artifacts.find((x) => x.name === "nova-linux-amd64");
+  const artifact = artifacts.find((x) => x.name === "nova-linux-arm64");
 
   const artifactResponse = await fetch(artifact.archive_download_url, {
     headers,
@@ -45,7 +45,7 @@ export default async () => {
 
   $("unzip nova.zip");
   $("rm nova.zip");
-  $("mv nova-linux-amd64 nova");
+  $("mv nova-linux-arm64 nova");
   $("chmod +x nova");
 
   return { version };
