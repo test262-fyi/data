@@ -36,7 +36,8 @@ const queue = [
   'porffor',
   'boa',
   'libjs',
-  'kiesel'
+  'kiesel',
+  'nova'
 ];
 
 const thread = async first => {
