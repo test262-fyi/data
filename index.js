@@ -10,7 +10,7 @@ const beganAt = Date.now();
 // setup working directory
 const workingDir = '/tmp/test262.fyi';
 fs.rmSync(workingDir, { recursive: true, force: true });
-if (!fs.existsSync(workingDir)) fs.mkdirSync(workingDir);
+if (!fs.existsSync(workingDir)) fs.mkdirSync(workingDir, { recursive: true, force: true });
 process.chdir(workingDir);
 
 // clone test262
