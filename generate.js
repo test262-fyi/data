@@ -387,7 +387,7 @@ export default async ({ test262Rev, beganAt }) => {
   let history;
 
   try {
-    history = await (await fetch('https://test262.fyi/data/history.json')).json();
+    history = await (await fetch(process.env.FYI_HISTORY_URL || 'https://data.test262.fyi/history.json')).json();
   } catch {
     // failed, probably does not exist or ?????
     history = {};
