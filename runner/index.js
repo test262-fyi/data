@@ -100,7 +100,7 @@ if (cluster.isPrimary) {
 
   const time = performance.now();
 
-  for (let w = 0; w < (process.env.FYI_PARALLEL_TESTS || 42); w++) spawn();
+  for (let w = 0; w < (process.env.FYI_PARALLEL_TESTS || 32); w++) spawn();
   await promise;
 
   // kill any runaway engine processes, ignore errors
