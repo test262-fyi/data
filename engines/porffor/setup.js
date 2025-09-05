@@ -2,7 +2,9 @@ import fs from 'node:fs';
 import { $ } from '../../cli.js';
 
 export default async () => {
+  $('rm -rf porffor');
   $(`git clone https://github.com/CanadaHonk/porffor.git porffor --depth=1`);
+  $(`cd porffor; npm install`);
 
   return {
     version: $('node ./porffor/runtime/index.js --version').trim(),
