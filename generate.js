@@ -126,8 +126,6 @@ export default async ({ test262Rev, beganAt }) => {
     "Intl.NumberFormat-v3": 99,
     // https://github.com/tc39/proposal-regexp-legacy-features
     "legacy-regexp": 99,
-    // https://github.com/tc39/proposal-json-parse-with-source
-    "json-parse-with-source": 99,
     // https://github.com/tc39/proposal-temporal
     "Temporal": 99,
     // https://github.com/tc39/proposal-shadowrealm
@@ -138,22 +136,35 @@ export default async ({ test262Rev, beganAt }) => {
     "regexp-duplicate-named-groups": 99,
     // https://github.com/tc39/proposal-array-from-async
     "Array.fromAsync": 99,
-    // https://github.com/tc39/proposal-intl-enumeration
-    "Intl-enumeration": 99,
-    // https://github.com/tc39/proposal-intl-extend-timezonename
-    "Intl.DateTimeFormat-extend-timezonename": 99,
-    // https://github.com/tc39/proposal-intl-displaynames-v2
-    "Intl.DisplayNames-v2": 99,
+    // https://github.com/tc39/proposal-json-parse-with-source
+    "json-parse-with-source": 99,
     // https://github.com/tc39/proposal-explicit-resource-management
     "explicit-resource-management": 99,
-    // https://github.com/tc39/proposal-math-sum
-    "Math.sumPrecise": 99,
     // https://github.com/tc39/proposal-source-phase-imports
     "source-phase-imports": 99,
     // https://github.com/tc39/proposal-esm-phase-imports
     "source-phase-imports-module-source": 99,
+    // https://github.com/tc39/proposal-atomics-microwait
+    "Atomics.pause": 99,
+    // https://tc39.es/proposal-defer-import-eval
+    "import-defer": 99,
+    // https://github.com/tc39/proposal-iterator-sequencing
+    "iterator-sequencing": 99,
+    // https://github.com/tc39/proposal-canonical-tz
+    "canonical-tz": 99,
+    // https://github.com/tc39/proposal-upsert
+    "upsert": 99,
+    // https://github.com/tc39/proposal-immutable-arraybuffer
+    "immutable-arraybuffer": 99,
+    // https://github.com/tc39/proposal-nonextensible-applies-to-private
+    "nonextensible-applies-to-private": 99,
     //
     "host-gc-required": 99,
+
+    // ESNext
+    "Error.isError": 99,
+    "Math.sumPrecise": 99,
+    "uint8array-base64": 99,
 
     // ES2025
     "Float16Array": 16,
@@ -194,6 +205,9 @@ export default async ({ test262Rev, beganAt }) => {
     "class-static-fields-public": 13,
     "class-static-methods-private": 13,
     "error-cause": 13,
+    "Intl.DateTimeFormat-extend-timezonename": 13,
+    "Intl.DisplayNames-v2": 13,
+    "Intl-enumeration": 13,
     "Intl.Segmenter": 13,
     "Object.hasOwn": 13,
     "regexp-match-indices": 13,
@@ -238,6 +252,8 @@ export default async ({ test262Rev, beganAt }) => {
     "json-superset": 10,
     "Object.fromEntries": 10,
     "optional-catch-binding": 10,
+    "stable-array-sort": 10,
+    "stable-typedarray-sort": 10,
     "string-trimming": 10,
     "String.prototype.trimEnd": 10,
     "String.prototype.trimStart": 10,
