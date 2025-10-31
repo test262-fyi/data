@@ -389,6 +389,7 @@ export default async ({ test262Rev, beganAt }) => {
     if (edition === 99) edition = undefined;
 
     if (!featureResults.has(feature)) featureResults.set(feature, { total: 0, engines: {}, proposal: detail || null });
+    if (!editionResults[edition]) editionResults[edition] = { total: 0, engines: {} };
 
     const r = featureResults.get(feature);
 
@@ -397,8 +398,6 @@ export default async ({ test262Rev, beganAt }) => {
       if (testsWithFeatures[file].includes(feature)) {
         tests.push(file);
         r.total++;
-
-        if (!editionResults[edition]) editionResults[edition] = { total: 0, engines: {} };
         editionResults[edition].total++;
       }
     }
