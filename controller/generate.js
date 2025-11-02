@@ -1,7 +1,6 @@
-import { readFileSync, readdirSync, mkdirSync, writeFileSync, existsSync, cpSync, rmSync } from 'fs';
-// import { mkdir, writeFile } from 'fs/promises';
+import { readFileSync, readdirSync, mkdirSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
-import read from './runner/read.js';
+import read from '../runner/read.js';
 
 const dataDir = 'deploy';
 const results = {}, versions = {}, times = {};

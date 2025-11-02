@@ -1,4 +1,4 @@
-import { $ } from '../../cli.js';
+import { $ } from '../../util.js';
 
 const buildDir = process.env.HOME + '/quickjs-ng';
 export default async () => {

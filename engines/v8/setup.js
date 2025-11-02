@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
-import { $ } from '../../cli.js';
+import { $ } from '../../util.js';
 
 export default async () => {
   const { version } = await (await fetch('https://storage.googleapis.com/chromium-v8/official/canary/v8-linux-arm64-rel-latest.json')).json();

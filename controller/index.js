@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import child_process from 'node:child_process';
 import process from 'node:process';
 import { join } from 'node:path';
-import { $ } from './cli.js';
+import { $ } from '../util.js';
 import generate from './generate.js';
 
 const beganAt = Date.now();
@@ -22,7 +22,7 @@ const test262Rev = $(`git -C test262 rev-parse HEAD`).trim().slice(0, 7);
 const run = engine => new Promise((res, rej) => {
   console.log(`running ${engine}...`);
   console.time(engine);
-  child_process.exec(`node ${join(import.meta.dirname, 'runner', 'index.js')} ${engine}`, {}, (err, stdout, stderr) => {
+  child_process.exec(`node ${join(import.meta.dirname, '..', 'runner', 'index.js')} ${engine}`, {}, (err, stdout, stderr) => {
     console.timeEnd(engine);
     if (err) console.error(err);
     res();

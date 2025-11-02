@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { $ } from '../../cli.js';
+import { $ } from '../../util.js';
 
 const buildDir = process.env.HOME + '/webkit';
 export default async () => {

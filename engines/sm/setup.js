@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
-import { $ } from '../../cli.js';
+import { $ } from '../../util.js';
 
 export default async () => {
   if (fs.existsSync('sm')) return {

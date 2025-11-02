@@ -1,4 +1,4 @@
-import { $, $$ } from '../../cli.js';
+import { $$ } from '../../util.js';
 
 export default (file, module = false) => {
   const args = [ './porffor/runtime/index.js', file ];
