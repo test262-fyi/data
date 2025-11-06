@@ -61,10 +61,8 @@ if (cluster.isPrimary) {
 
     const worker = cluster.fork();
 
-    let timeout;
     let running;
     const enqueue = () => {
-      if (timeout) clearTimeout(timeout);
       running = tests[queue++];
       if (!running) {
         worker.kill();
@@ -72,20 +70,6 @@ if (cluster.isPrimary) {
       }
 
       worker.send(running);
-      timeout = setTimeout(() => {
-        worker.kill();
-        result(running.file, false);
-
-        // cleanup tmp file
-        const tmpFile = `test262/test/${running.file}.${engine}`;
-        fs.unlinkSync(tmpFile);
-
-        if (finished === total) {
-          resolve();
-        } else {
-          spawn();
-        }
-      }, 10000);
     };
 
     worker.on('message', pass => {

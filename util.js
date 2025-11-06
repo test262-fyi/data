@@ -16,7 +16,8 @@ export const $$ = (cmd, args, env = {}) => {
       ...process.env,
       NO_COLOR: 1,
       ...env
-    }
+    },
+    timeout: 10000
   });
 
   return {
