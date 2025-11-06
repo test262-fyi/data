@@ -4,6 +4,7 @@ import process from 'node:process';
 import { join } from 'node:path';
 import { $ } from '../util.js';
 import generate from './generate.js';
+import * as OOMKiller from './oom-killer.js';
 
 const beganAt = Date.now();
 
@@ -19,11 +20,14 @@ fs.rmSync('test262', { recursive: true, force: true });
 $(`git clone https://github.com/tc39/test262.git --depth=1`);
 const test262Rev = $(`git -C test262 rev-parse HEAD`).trim().slice(0, 7);
 
+OOMKiller.start(workingDir);
+
 const run = engine => new Promise((res, rej) => {
   console.log(`running ${engine}...`);
   console.time(engine);
   child_process.exec(`node ${join(import.meta.dirname, '..', 'runner', 'index.js')} ${engine}`, {}, (err, stdout, stderr) => {
     console.timeEnd(engine);
+    $(`pkill -9 -f "\\\\.${engine}$" || true`); // clean up any still running engine processes
     if (err) console.error(err);
     res();
   });
@@ -59,6 +63,8 @@ await Promise.all([
     await run('sm_exp');
   })
 ]);
+
+OOMKiller.stop();
 
 // kill any runaway engine processes, ignore errors
 try {
