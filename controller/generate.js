@@ -135,8 +135,6 @@ export default async ({ test262Rev, beganAt }) => {
     "regexp-duplicate-named-groups": 99,
     // https://github.com/tc39/proposal-array-from-async
     "Array.fromAsync": 99,
-    // https://github.com/tc39/proposal-json-parse-with-source
-    "json-parse-with-source": 99,
     // https://github.com/tc39/proposal-explicit-resource-management
     "explicit-resource-management": 99,
     // https://github.com/tc39/proposal-source-phase-imports
@@ -147,8 +145,6 @@ export default async ({ test262Rev, beganAt }) => {
     "Atomics.pause": 99,
     // https://tc39.es/proposal-defer-import-eval
     "import-defer": 99,
-    // https://github.com/tc39/proposal-iterator-sequencing
-    "iterator-sequencing": 99,
     // https://github.com/tc39/proposal-canonical-tz
     "canonical-tz": 99,
     // https://github.com/tc39/proposal-upsert
@@ -162,6 +158,8 @@ export default async ({ test262Rev, beganAt }) => {
 
     // ESNext
     "Error.isError": 99,
+    "iterator-sequencing": 99,
+    "json-parse-with-source": 99,
     "Math.sumPrecise": 99,
     "uint8array-base64": 99,
 
