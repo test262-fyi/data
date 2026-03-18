@@ -4,10 +4,12 @@ import { finished } from 'node:stream/promises';
 import { $ } from '../../util.js';
 
 export default async () => {
-  const headers = process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {};
-  const artifact = (await (await fetch('https://api.github.com/repos/ladybirdbrowser/ladybird/actions/artifacts', { headers })).json())
-    .artifacts.find(x => x.name === 'ladybird-js-Linux-aarch64');
+  const LIBJS_ARTIFACT_NAME = 'ladybird-js-Linux-aarch64';
 
+  const headers = process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {};
+  const url = `https://api.github.com/repos/ladybirdbrowser/ladybird/actions/artifacts?name=${LIBJS_ARTIFACT_NAME}`;
+
+  const artifact = (await (await fetch(url, { headers })).json()).artifacts[0];
   const version = artifact.workflow_run.head_sha.slice(0, 7);
 
   const { body } = await fetch(artifact.archive_download_url, { headers });
@@ -15,7 +17,7 @@ export default async () => {
 
   $(`unzip -o libjs.zip -d _libjs`);
   fs.rmSync('libjs.zip', { force: true });
-  $(`tar -xf _libjs/ladybird-js-Linux-aarch64.tar.gz -C _libjs`);
+  $(`tar -xf _libjs/${LIBJS_ARTIFACT_NAME}.tar.gz -C _libjs`);
   $(`cp -rf _libjs/bin/js libjs`);
   fs.rmSync('_libjs', { recursive: true, force: true });
 
