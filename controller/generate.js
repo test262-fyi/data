@@ -100,7 +100,6 @@ export default async ({ test262Rev, beganAt }) => {
     writeFileSync(dataFile, JSON.stringify(out));
     return out;
   };
-  // walkStruct(struct);
   walk(struct);
 
   const testsWithFeatures = {};
@@ -414,14 +413,13 @@ export default async ({ test262Rev, beganAt }) => {
   writeFileSync(join(dataDir, 'features.json'), JSON.stringify(Object.fromEntries(featureResults)));
   writeFileSync(join(dataDir, 'editions.json'), JSON.stringify(editionResults));
 
-  // jank :)
   let history;
 
   try {
     history = await (await fetch(process.env.FYI_HISTORY_URL || 'https://data.test262.fyi/history.json')).json();
   } catch {
-    // failed, probably does not exist or ?????
-    history = {};
+    // fatal so we don't erase history
+    throw new Error('failed to fetch existing history.json');
   }
 
   const date = (new Date()).toISOString().split('T')[0];

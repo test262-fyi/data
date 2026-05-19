@@ -7,16 +7,6 @@ const limit  = 2 * 1024 * 1024 * 1024, // 2G
 let interval;
 export const start = () => {
   interval = setInterval(() => {
-    // const pids = $(`pgrep -f ${filter}`).trim().split('\n');
-    // const processes = $(`ps -o pid=,rss= -p ${pids.join(',')} || true`).trim().split('\n');
-    // for (const raw of processes) {
-    //   const [ pid, rss ] = raw.trim().split(' ');
-    //   if (parseInt(rss) > limit) {
-    //     process.kill(parseInt(pid), 9);
-    //     console.error(`OOM killer: rip ${pid} (rss: ${rss}, limit: ${limit})`);
-    //   }
-    // }
-
     readdir('/proc', (err, files) => {
       if (err) return;
       for (let i = 0; i < files.length; i++) {
