@@ -5,7 +5,6 @@ import { $ } from "../../util.js";
 import platform from "../platform.js";
 
 export default async () => {
-  const artifactName = platform.nova;
   const headers = process.env.GITHUB_TOKEN
     ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
     : {};
@@ -29,7 +28,7 @@ export default async () => {
   const artifacts = (
     await (await fetch(latest.artifacts_url, { headers })).json()
   ).artifacts;
-  const artifact = artifacts.find((x) => x.name === artifactName);
+  const artifact = artifacts.find((x) => x.name === platform.nova);
 
   const artifactResponse = await fetch(artifact.archive_download_url, {
     headers,
@@ -47,7 +46,7 @@ export default async () => {
 
   $("unzip nova.zip");
   $("rm nova.zip");
-  $(`mv ${artifactName} nova`);
+  $(`mv ${platform.nova} nova`);
   $("chmod +x nova");
 
   return { version };
