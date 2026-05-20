@@ -4,12 +4,6 @@ import os from 'node:os';
 import read from './read.js';
 import { join } from 'node:path';
 
-// setup working directory
-const workingDir = '/tmp/test262.fyi';
-// fs.rmSync(workingDir, { recursive: true, force: true });
-// if (!fs.existsSync(workingDir)) fs.mkdirSync(workingDir);
-process.chdir(workingDir);
-
 let engine = process.argv[2];
 let experimental = false;
 if (engine.endsWith('_exp')) {
