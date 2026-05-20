@@ -44,7 +44,7 @@ export default async () => {
     ),
   );
 
-  $("unzip nova.zip");
+  $("unzip -q nova.zip");
   $("rm nova.zip");
   $(`mv ${platform.nova} nova`);
   $("chmod +x nova");

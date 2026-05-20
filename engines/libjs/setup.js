@@ -14,7 +14,7 @@ export default async () => {
   const { body } = await fetch(artifact.archive_download_url, { headers });
   await finished(Readable.fromWeb(body).pipe(fs.createWriteStream('libjs.zip')));
 
-  $(`unzip -o libjs.zip -d _libjs`);
+  $(`unzip -oq libjs.zip -d _libjs`);
   fs.rmSync('libjs.zip', { force: true });
   $(`tar -xf _libjs/${platform.libjs}.tar.gz -C _libjs`);
   $(`cp -rf _libjs/bin/js libjs`);

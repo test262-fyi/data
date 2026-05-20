@@ -31,10 +31,9 @@ export default async () => {
 
   fs.rmSync('jsc', { recursive: true, force: true });
   if (process.platform === 'linux') {
-    $('unzip -o jsc.zip -d jsc');
+    $('unzip -oq jsc.zip -d jsc');
   } else {
-    fs.mkdirSync('jsc', { recursive: true });
-    $('unzip -oj jsc.zip "Release/*" -d jsc');
+    $('unzip -oq jsc.zip "Release/*" -d jsc');
   }
   fs.rmSync('jsc.zip');
 
