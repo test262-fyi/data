@@ -77,5 +77,5 @@ $(`git commit -m "deploy"`, {
   GIT_COMMITTER_NAME: 'test262.fyi',
   GIT_COMMITTER_EMAIL: 'hello@test262.fyi'
 });
-$(`git remote add origin git@github.com:test262-fyi/data.git`)
+$(`git remote add origin https://github.com/test262-fyi/data.git`)
 $(`git push -f origin gh-pages`);
