@@ -62,3 +62,8 @@ try {
 }
 
 await generate();
+
+for (const file of fs.readdirSync(workingDir)) {
+  if (file === 'results') continue;
+  fs.rmSync(file, { recursive: true, force: true });
+}
