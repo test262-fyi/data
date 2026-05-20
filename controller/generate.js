@@ -1,9 +1,47 @@
 import { readFileSync, readdirSync, mkdirSync, writeFileSync } from 'fs';
+import os from 'node:os';
 import { dirname, join } from 'path';
 import read from '../runner/read.js';
+import { $ } from '../util.js';
 
 const dataDir = 'deploy';
 const results = {}, versions = {}, times = {};
+
+const cleanCpu = cpu => cpu
+  ?.replace(/^Apple /, '')
+  .replace(/\s+\d+-Core Processor$/i, '')
+  .replace(/\s+/g, ' ')
+  .trim();
+
+const linuxName = () => {
+  try {
+    const fields = Object.fromEntries(readFileSync('/etc/os-release', 'utf8')
+      .split('\n')
+      .filter(line => line.includes('='))
+      .map(line => {
+        const [key, ...value] = line.split('=');
+        return [key, value.join('=').replace(/^"|"$/g, '')];
+      }));
+
+    return fields.PRETTY_NAME ?? fields.NAME;
+  } catch {
+    return 'Linux';
+  }
+};
+
+const systemInfo = () => {
+  const cpu = cleanCpu(os.cpus()[0]?.model);
+
+  if (process.platform === 'darwin') {
+    const version = $('sw_vers -productVersion').trim() || os.release();
+    return `macOS ${version}${cpu ? ` with ${cpu}` : ''}`;
+  }
+
+  if (process.platform === 'linux') {
+    const name = linuxName();
+    return `${name} ${process.arch}${cpu ? ` with ${cpu}` : ''}`;
+  }
+};
 
 export default async ({ test262Rev, beganAt }) => {
   for (const file of readdirSync('results')) {
@@ -22,16 +60,6 @@ export default async ({ test262Rev, beganAt }) => {
   writeFileSync(join(dataDir, 'CNAME'), 'data.test262.fyi');
 
   console.log(versions);
-
-  writeFileSync(join(dataDir, 'engines.json'), JSON.stringify(versions));
-  writeFileSync(join(dataDir, 'times.json'), JSON.stringify({
-    generatedAt: Date.now(),
-    beganAt,
-    timeTaken: times
-  }));
-  writeFileSync(join(dataDir, 'test262.json'), JSON.stringify({
-    revision: test262Rev
-  }));
 
   const orderedFiles = Object.keys(results[engines[0]]).sort((a, b) => a.localeCompare(b));
 
@@ -410,8 +438,20 @@ export default async ({ test262Rev, beganAt }) => {
     }
   }
 
-  writeFileSync(join(dataDir, 'features.json'), JSON.stringify(Object.fromEntries(featureResults)));
-  writeFileSync(join(dataDir, 'editions.json'), JSON.stringify(editionResults));
+  writeFileSync(join(dataDir, 'meta.json'), JSON.stringify({
+    engines: versions,
+    times: {
+      generatedAt: Date.now(),
+      beganAt,
+      timeTaken: times,
+      system: systemInfo()
+    },
+    test262: {
+      revision: test262Rev
+    },
+    features: Object.fromEntries(featureResults),
+    editions: editionResults
+  }));
 
   let history;
 
