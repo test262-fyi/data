@@ -1,5 +1,6 @@
 import cluster from 'node:cluster';
 import fs from 'node:fs';
+import os from 'node:os';
 import read from './read.js';
 import { join } from 'node:path';
 
@@ -84,7 +85,9 @@ if (cluster.isPrimary) {
 
   const time = performance.now();
 
-  for (let w = 0; w < (process.env.FYI_PARALLEL_TESTS || 32); w++) spawn();
+  const workerCount = process.env.FYI_PARALLEL_TESTS || Math.floor(os.availableParallelism() * 0.75); // leave ~25% for runner overhead and to avoid lockups
+  for (let w = 0; w < workerCount; w++) spawn();
+
   await promise;
 
   // kill any runaway engine processes, ignore errors

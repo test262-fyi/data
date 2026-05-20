@@ -33,8 +33,13 @@ const run = engine => new Promise((res, rej) => {
   });
 });
 
-// queue where order does not matter
 const queue = [
+  'jsc',
+  'jsc_exp',
+  'v8',
+  'v8_exp',
+  'sm',
+  'sm_exp',
   'qjs',
   'qjs_ng',
   'porffor',
@@ -44,25 +49,7 @@ const queue = [
   'nova'
 ];
 
-const thread = async first => {
-  await first();
-  while (queue.length > 0) await run(queue.shift());
-};
-
-await Promise.all([
-  thread(async () => {
-    await run('jsc');
-    await run('jsc_exp');
-  }),
-  thread(async () => {
-    await run('v8');
-    await run('v8_exp');
-  }),
-  thread(async () => {
-    await run('sm');
-    await run('sm_exp');
-  })
-]);
+while (queue.length > 0) await run(queue.shift());
 
 OOMKiller.stop();
 
