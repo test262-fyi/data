@@ -1,10 +1,10 @@
 import { $$ } from '../../util.js';
 
 const env = process.platform === 'linux'
-  ? { LD_LIBRARY_PATH: '/tmp/test262.fyi/jsc/lib' }
+  ? { LD_LIBRARY_PATH: './jsc/lib' }
   : {
-      DYLD_FRAMEWORK_PATH: '/tmp/test262.fyi/jsc',
-      DYLD_LIBRARY_PATH: '/tmp/test262.fyi/jsc'
+      DYLD_FRAMEWORK_PATH: './jsc',
+      DYLD_LIBRARY_PATH: './jsc'
     };
 
 const bin = process.platform === 'linux' ? './jsc/bin/jsc' : './jsc/jsc';
