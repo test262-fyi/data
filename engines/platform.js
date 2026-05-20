@@ -25,5 +25,4 @@ const key = `${process.platform}-${process.arch}`;
 const platform = platforms[key];
 if (!platform) throw new Error(`Unsupported platform ${key} (expected ${Object.keys(platforms).join('/')})`);
 
-platform.key = key;
 export default platform;
