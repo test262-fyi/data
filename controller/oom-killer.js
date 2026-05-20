@@ -1,34 +1,33 @@
-import { readdir, readFile } from 'node:fs';
-import { $ } from '../util.js';
+import { execFile } from 'node:child_process';
 
-const limit  = 2 * 1024 * 1024 * 1024, // 2G
+const limit  = 1 * 1024 * 1024 * 1024, // 2G
       filter = 'test262/test';
 
-let interval;
+let interval, running = false;
 export const start = () => {
   interval = setInterval(() => {
-    readdir('/proc', (err, files) => {
-      if (err) return;
-      for (let i = 0; i < files.length; i++) {
-        const pid = files[i];
-        if (!/^\d+$/.test(pid)) continue;
+    if (running) return;
+    running = true;
 
-        readFile(`/proc/${pid}/cmdline`, 'utf8', (err, cmdline) => {
-          if (err || !cmdline || !cmdline.includes(filter)) return;
+    execFile('ps', ['-axo', 'pid=,rss=,command='], { maxBuffer: 16 * 1024 * 1024 }, (err, stdout) => {
+      running = false;
+      if (err || !stdout) return;
 
-          readFile(`/proc/${pid}/status`, 'utf8', (err, status) => {
-            if (err || !status) return;
+      for (const line of stdout.split('\n')) {
+        const match = line.match(/^\s*(\d+)\s+(\d+)\s+(.+)$/);
+        if (!match) continue;
 
-            const _rss = status.match(/^VmRSS:\s+(\d+)\s+kB/m)?.[1];
-            if (!_rss) return;
+        const [, pid, _rss, cmdline] = match;
+        if (!cmdline.includes(filter)) continue;
 
-            const rss = parseInt(_rss, 10) * 1024;
-            if (rss < limit) return;
+        const rss = parseInt(_rss, 10) * 1024;
+        if (rss < limit) continue;
 
-            process.kill(parseInt(pid, 10), 9);
-            console.error(`OOM killer: rip! ${pid} | ${cmdline.replaceAll('\x00', ' ')} | rss: ${(rss / 1024 / 1024 / 1024).toFixed(2)}G`);
-          });
-        });
+        try {
+          process.kill(parseInt(pid, 10), 9);
+          console.error(`OOM killer: rip! ${pid} | ${cmdline} | rss: ${(rss / 1024 / 1024 / 1024).toFixed(2)}G`);
+        } catch {
+        }
       }
     });
   }, 500);
