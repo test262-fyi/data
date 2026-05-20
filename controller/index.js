@@ -9,10 +9,31 @@ import * as OOMKiller from './oom-killer.js';
 const beganAt = Date.now();
 
 // setup working directory
-const workingDir = '/tmp/test262.fyi';
-fs.rmSync(workingDir, { recursive: true, force: true });
+const workingDir = join(import.meta.dirname, '..', '.test262-fyi');
 if (!fs.existsSync(workingDir)) fs.mkdirSync(workingDir);
 process.chdir(workingDir);
+
+const engines = [
+  'jsc',
+  'jsc_exp',
+  'v8',
+  'v8_exp',
+  'sm',
+  'sm_exp',
+  'qjs',
+  'qjs_ng',
+  'porffor',
+  'boa',
+  'libjs',
+  'kiesel',
+  'nova'
+];
+
+let queue = process.argv[2]?.split(',').map(x => x.trim()).filter(x => x);
+if (queue.length === 0) queue = engines;
+
+if (queue.length === engines.length) fs.rmSync('results', { recursive: true, force: true });
+fs.rmSync('deploy', { recursive: true, force: true });
 
 // clone test262
 console.log('cloning test262...');
@@ -33,22 +54,6 @@ const run = engine => new Promise((res, rej) => {
   });
 });
 
-const queue = [
-  'jsc',
-  'jsc_exp',
-  'v8',
-  'v8_exp',
-  'sm',
-  'sm_exp',
-  'qjs',
-  'qjs_ng',
-  'porffor',
-  'boa',
-  'libjs',
-  'kiesel',
-  'nova'
-];
-
 while (queue.length > 0) await run(queue.shift());
 
 OOMKiller.stop();
@@ -61,7 +66,8 @@ try {
 
 await generate({ beganAt, test262Rev });
 
-process.chdir('/tmp/test262.fyi/deploy');
+process.chdir(join(workingDir, 'deploy'));
+
 $(`git init`);
 $(`git branch -m gh-pages`);
 $(`git add .`);
@@ -73,5 +79,3 @@ $(`git commit -m "deploy"`, {
 });
 $(`git remote add origin git@github.com:test262-fyi/data.git`)
 $(`git push -f origin gh-pages`);
-
-fs.rmSync(workingDir, { recursive: true, force: true });
