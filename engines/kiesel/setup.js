@@ -11,6 +11,6 @@ export default async () => {
   $('chmod +x kiesel');
 
   return {
-    version: $('./kiesel --version').split('\n')[0].split('+')[1].trim()
+    version: $('./kiesel --version').split('\n')[0].trim().replace('Kiesel ', '')
   };
 };
