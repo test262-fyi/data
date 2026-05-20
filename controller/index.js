@@ -30,7 +30,7 @@ const engines = [
 ];
 
 let queue = process.argv[2]?.split(',').map(x => x.trim()).filter(x => x);
-if (queue.length === 0) queue = engines;
+if (queue == null || queue.length === 0) queue = engines;
 
 if (queue.length === engines.length) fs.rmSync('results', { recursive: true, force: true });
 fs.rmSync('deploy', { recursive: true, force: true });
