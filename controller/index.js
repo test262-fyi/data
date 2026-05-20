@@ -6,8 +6,6 @@ import { $ } from '../util.js';
 import generate from './generate.js';
 import * as OOMKiller from './oom-killer.js';
 
-const beganAt = Date.now();
-
 // setup working directory
 const workingDir = join(import.meta.dirname, '..', '.test262-fyi');
 if (!fs.existsSync(workingDir)) fs.mkdirSync(workingDir);
@@ -64,4 +62,4 @@ try {
 } catch {
 }
 
-await generate({ beganAt, test262Rev });
+await generate({ test262Rev });

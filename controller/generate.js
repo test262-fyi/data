@@ -43,7 +43,7 @@ const systemInfo = () => {
   }
 };
 
-export default async ({ test262Rev, beganAt }) => {
+export default async ({ test262Rev }) => {
   for (const file of readdirSync('results')) {
     const engine = file.split('.')[0];
     const { passes, time, version } = JSON.parse(readFileSync(`results/${file}`, 'utf8'));
@@ -442,7 +442,6 @@ export default async ({ test262Rev, beganAt }) => {
     engines: versions,
     times: {
       generatedAt: Date.now(),
-      beganAt,
       timeTaken: times,
       system: systemInfo()
     },
