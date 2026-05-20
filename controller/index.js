@@ -65,17 +65,3 @@ try {
 }
 
 await generate({ beganAt, test262Rev });
-
-process.chdir(join(workingDir, 'deploy'));
-
-$(`git init`);
-$(`git branch -m gh-pages`);
-$(`git add .`);
-$(`git commit -m "deploy"`, {
-  GIT_AUTHOR_NAME: 'test262.fyi',
-  GIT_AUTHOR_EMAIL: 'hello@test262.fyi',
-  GIT_COMMITTER_NAME: 'test262.fyi',
-  GIT_COMMITTER_EMAIL: 'hello@test262.fyi'
-});
-$(`git remote add origin https://github.com/test262-fyi/data.git`)
-$(`git push -f origin gh-pages`);
