@@ -2,8 +2,10 @@ import fs from "node:fs";
 import { Readable } from "node:stream";
 import { finished } from "node:stream/promises";
 import { $ } from "../../util.js";
+import platform from "../platform.js";
 
 export default async () => {
+  const artifactName = platform.nova;
   const headers = process.env.GITHUB_TOKEN
     ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
     : {};
@@ -27,7 +29,7 @@ export default async () => {
   const artifacts = (
     await (await fetch(latest.artifacts_url, { headers })).json()
   ).artifacts;
-  const artifact = artifacts.find((x) => x.name === "nova-linux-arm64");
+  const artifact = artifacts.find((x) => x.name === artifactName);
 
   const artifactResponse = await fetch(artifact.archive_download_url, {
     headers,
@@ -45,7 +47,7 @@ export default async () => {
 
   $("unzip nova.zip");
   $("rm nova.zip");
-  $("mv nova-linux-arm64 nova");
+  $(`mv ${artifactName} nova`);
   $("chmod +x nova");
 
   return { version };

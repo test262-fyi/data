@@ -1,10 +1,19 @@
 import { $$ } from '../../util.js';
 
+const env = process.platform === 'linux'
+  ? { LD_LIBRARY_PATH: '/tmp/test262.fyi/jsc/lib' }
+  : {
+      DYLD_FRAMEWORK_PATH: '/tmp/test262.fyi/jsc',
+      DYLD_LIBRARY_PATH: '/tmp/test262.fyi/jsc'
+    };
+
+const bin = process.platform === 'linux' ? './jsc/bin/jsc' : './jsc/jsc';
+
 let experimentalArgs = null;
 const getExperimentalArgs = () => {
   experimentalArgs = [];
 
-  const help = $$('./jsc/bin/jsc', [ '--options' ]).stderr.split('\n');
+  const help = $$(bin, [ '--options' ], env).stderr.split('\n');
   let ignore = true;
   for (const x of help) {
     if (ignore) {
@@ -26,7 +35,5 @@ export default (file, module = false, experimental = false) => {
   if (module) args.unshift('-m');
   if (experimental) args.unshift(...(experimentalArgs ?? getExperimentalArgs()));
 
-  return $$('./jsc/bin/jsc', args, {
-    LD_LIBRARY_PATH: '/tmp/test262.fyi/jsc/lib'
-  });
+  return $$(bin, args, env);
 };

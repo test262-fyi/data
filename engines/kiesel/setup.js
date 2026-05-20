@@ -2,9 +2,10 @@ import fs from 'node:fs';
 import { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
 import { $ } from '../../util.js';
+import platform from '../platform.js';
 
 export default async () => {
-  const { body } = await fetch(`https://files.kiesel.dev/kiesel-linux-aarch64`);
+  const { body } = await fetch(`https://files.kiesel.dev/${platform.kiesel}`);
   await finished(Readable.fromWeb(body).pipe(fs.createWriteStream('kiesel')));
 
   $('chmod +x kiesel');

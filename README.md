@@ -1,9 +1,6 @@
 # test262.fyi
 Independent daily [test262](https://github.com/tc39/test262) (standard test suite) runner for *many* JS engines (test262.report spiritual successor). WIP.
 
-> [!WARNING]
-> The new test262.fyi is built for specific hardware in mind (Linux aarch64, high CPU core count) and it is highly recommended *not* to run it yourself. Please use issues and PRs :)
-
 ## Engines
 - [X] V8 <small>[site](https://v8.dev)</small> <small>[source](https://chromium.googlesource.com/v8/v8.git)</small>
 - [X] SpiderMonkey <small>[site](https://spidermonkey.dev)</small> <small>[source](https://hg.mozilla.org/mozilla-central/file/tip/js)</small>
