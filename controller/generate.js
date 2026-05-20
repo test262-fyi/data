@@ -1,6 +1,7 @@
 import { readFileSync, readdirSync, mkdirSync, writeFileSync } from 'fs';
 import os from 'node:os';
 import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 import read from '../runner/read.js';
 import { $ } from '../util.js';
 
@@ -43,7 +44,9 @@ const systemInfo = () => {
   }
 };
 
-export default async ({ test262Rev }) => {
+const generate = async () => {
+  const test262Rev = $(`git -C test262 rev-parse HEAD`).trim().slice(0, 7);
+
   for (const file of readdirSync('results')) {
     const engine = file.split('.')[0];
     const { passes, time, version } = JSON.parse(readFileSync(`results/${file}`, 'utf8'));
@@ -86,7 +89,6 @@ export default async ({ test262Rev }) => {
   const walk = (x) => {
     let out = { total: 0, engines: {}, files: {} };
     const file = x.get('file') ?? 'index';
-    // console.log(file);
     const dataFile = join(dataDir, file + '.json');
 
     for (const k of x.keys()) {
@@ -172,6 +174,16 @@ export default async ({ test262Rev }) => {
     "Atomics.pause": 99,
     // https://tc39.es/proposal-defer-import-eval
     "import-defer": 99,
+    // https://github.com/tc39/proposal-defer-import-eval
+    "export-defer": 99,
+    // https://github.com/tc39/proposal-import-text
+    "import-text": 99,
+    // https://github.com/tc39/proposal-import-bytes
+    "import-bytes": 99,
+    // https://github.com/tc39/proposal-joint-iteration
+    "joint-iteration": 99,
+    // https://github.com/tc39/proposal-await-dictionary
+    "await-dictionary": 99,
     // https://github.com/tc39/proposal-canonical-tz
     "canonical-tz": 99,
     // https://github.com/tc39/proposal-immutable-arraybuffer
@@ -476,3 +488,13 @@ export default async ({ test262Rev }) => {
 
   writeFileSync(join(dataDir, 'history.json'), JSON.stringify(history));
 };
+
+export default generate;
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const workingDir = join(import.meta.dirname, '..', '.test262-fyi');
+  mkdirSync(workingDir, { recursive: true });
+  process.chdir(workingDir);
+
+  await generate();
+}

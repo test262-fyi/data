@@ -37,7 +37,6 @@ fs.rmSync('deploy', { recursive: true, force: true });
 console.log('cloning test262...');
 fs.rmSync('test262', { recursive: true, force: true });
 $(`git clone https://github.com/tc39/test262.git --depth=1`);
-const test262Rev = $(`git -C test262 rev-parse HEAD`).trim().slice(0, 7);
 
 OOMKiller.start(workingDir);
 
@@ -62,4 +61,4 @@ try {
 } catch {
 }
 
-await generate({ test262Rev });
+await generate();
