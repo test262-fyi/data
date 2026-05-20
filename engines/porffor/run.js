@@ -1,8 +1,8 @@
 import { $$ } from '../../util.js';
 
 export default (file, module = false) => {
-  const args = [ file ];
+  const args = [ './porffor/runtime/index.js', file ];
   if (module) args.push('--module');
 
-  return $$('./porffor', args);
+  return $$('node', args);
 };
