@@ -20,15 +20,21 @@ const engines = [
   'sm_exp',
   'qjs',
   'qjs_ng',
-  'porffor',
+  'hermes',
+  // 'porffor',
   'boa',
   'libjs',
+  // 'engine262',
+  'xs',
+  'njs',
   'kiesel',
   'nova'
 ];
 
 let queue = process.argv[2]?.split(',').map(x => x.trim()).filter(x => x);
 if (queue == null || queue.length === 0) queue = engines;
+
+if (!process.env.GITHUB_TOKEN) throw new Error('GITHUB_TOKEN is required');
 
 if (queue.length === engines.length) fs.rmSync('results', { recursive: true, force: true });
 fs.rmSync('deploy', { recursive: true, force: true });
@@ -64,6 +70,6 @@ try {
 await generate();
 
 for (const file of fs.readdirSync(workingDir)) {
-  if (file === 'results') continue;
+  if (['results', 'deploy', 'test262'].includes(file)) continue;
   fs.rmSync(file, { recursive: true, force: true });
 }
