@@ -148,30 +148,18 @@ const generate = async () => {
   const featureResults = new Map(), featureDetails = new Map(), editionResults = {};
 
   const featureByEdition = new Map(Object.entries({
-    // https://github.com/tc39/proposal-intl-locale-info
-    "Intl.Locale-info": 99,
     // https://github.com/tc39/proposal-intl-numberformat-v3
     "Intl.NumberFormat-v3": 99,
     // https://github.com/tc39/proposal-regexp-legacy-features
     "legacy-regexp": 99,
-    // https://github.com/tc39/proposal-temporal
-    "Temporal": 99,
     // https://github.com/tc39/proposal-shadowrealm
     "ShadowRealm": 99,
     // https://github.com/tc39/proposal-decorators
     "decorators": 99,
-    // https://github.com/tc39/proposal-duplicate-named-capturing-groups
-    "regexp-duplicate-named-groups": 99,
-    // https://github.com/tc39/proposal-array-from-async
-    "Array.fromAsync": 99,
-    // https://github.com/tc39/proposal-explicit-resource-management
-    "explicit-resource-management": 99,
     // https://github.com/tc39/proposal-source-phase-imports
     "source-phase-imports": 99,
     // https://github.com/tc39/proposal-esm-phase-imports
     "source-phase-imports-module-source": 99,
-    // https://github.com/tc39/proposal-atomics-microwait
-    "Atomics.pause": 99,
     // https://tc39.es/proposal-defer-import-eval
     "import-defer": 99,
     // https://github.com/tc39/proposal-defer-import-eval
@@ -180,26 +168,41 @@ const generate = async () => {
     "import-text": 99,
     // https://github.com/tc39/proposal-import-bytes
     "import-bytes": 99,
-    // https://github.com/tc39/proposal-joint-iteration
-    "joint-iteration": 99,
     // https://github.com/tc39/proposal-await-dictionary
     "await-dictionary": 99,
-    // https://github.com/tc39/proposal-canonical-tz
-    "canonical-tz": 99,
     // https://github.com/tc39/proposal-immutable-arraybuffer
     "immutable-arraybuffer": 99,
     // https://github.com/tc39/proposal-nonextensible-applies-to-private
     "nonextensible-applies-to-private": 99,
+    // https://github.com/tc39/proposal-iterator-chunking
+    "iterator-chunking": 99,
+    // https://github.com/tc39/proposal-iterator-includes
+    "iterator-includes": 99,
+    // https://github.com/tc39/proposal-iterator-join
+    "Iterator.prototype.join": 99,
+    // https://github.com/tc39/proposal-error-stack-accessor
+    "error-stack-accessor": 99,
+    // https://github.com/tc39/proposal-regexp-buffer-boundaries
+    "regexp-buffer-boundaries": 99,
     //
     "host-gc-required": 99,
 
     // ESNext
-    "Error.isError": 99,
-    "iterator-sequencing": 99,
-    "json-parse-with-source": 99,
-    "Math.sumPrecise": 99,
-    "uint8array-base64": 99,
-    "upsert": 99,
+    "Atomics.pause": 99,
+    "canonical-tz": 99,
+    "explicit-resource-management": 99,
+    "joint-iteration": 99,
+    "Temporal": 99,
+
+    // ES2026
+    "Array.fromAsync": 17,
+    "Error.isError": 17,
+    "Intl.Locale-info": 17,
+    "iterator-sequencing": 17,
+    "json-parse-with-source": 17,
+    "Math.sumPrecise": 17,
+    "uint8array-base64": 17,
+    "upsert": 17,
 
     // ES2025
     "Float16Array": 16,
@@ -209,6 +212,7 @@ const generate = async () => {
     "json-modules": 16,
     "promise-try": 16,
     "RegExp.escape": 16,
+    "regexp-duplicate-named-groups": 16,
     "regexp-modifiers": 16,
     "set-methods": 16,
 
