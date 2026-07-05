@@ -24,6 +24,7 @@ const engines = [
   // 'porffor',
   'boa',
   'libjs',
+  'lumen',
   // 'engine262',
   'xs',
   'njs',
