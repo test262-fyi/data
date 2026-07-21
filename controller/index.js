@@ -22,6 +22,7 @@ const engines = [
   'qjs_ng',
   'hermes',
   'porffor',
+  'js2',
   'boa',
   'libjs',
   // 'engine262',
