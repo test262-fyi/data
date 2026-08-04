@@ -1,6 +1,6 @@
 import { execFile } from 'node:child_process';
 
-const limit  = 1 * 1024 * 1024 * 1024, // 2G
+const limit  = 1 * 1024 * 1024 * 1024, // 1G
       filter = 'test262/test';
 
 let interval, running = false;
