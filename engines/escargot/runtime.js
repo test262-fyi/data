@@ -1,0 +1,1 @@
+// Escargot provides the test262 host API natively when built with ESCARGOT_TEST=ON.

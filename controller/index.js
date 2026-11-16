@@ -28,7 +28,8 @@ const engines = [
   'xs',
   'njs',
   'kiesel',
-  'nova'
+  'nova',
+  'escargot'
 ];
 
 let queue = process.argv[2]?.split(',').map(x => x.trim()).filter(x => x);
