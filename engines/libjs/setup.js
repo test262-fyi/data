@@ -16,9 +16,9 @@ export default async () => {
 
   $(`unzip -oq libjs.zip -d _libjs`);
   fs.rmSync('libjs.zip', { force: true });
-  $(`tar -xf _libjs/${platform.libjs}.tar.gz -C _libjs`);
-  $(`cp -rf _libjs/bin/js libjs`);
-  $(`cp -f _libjs/share/Lagom/icu/icudt*.dat .`);
+  fs.rmSync('libjs', { recursive: true, force: true });
+  fs.mkdirSync('libjs');
+  $(`tar -xf _libjs/${platform.libjs}.tar.gz -C libjs`);
   fs.rmSync('_libjs', { recursive: true, force: true });
 
   return { version };
